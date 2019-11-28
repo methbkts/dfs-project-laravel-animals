@@ -47,7 +47,10 @@ class RaceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $race = new Race;
+        $race->name = $request->name;
+        $race->save();
+        return redirect('races.show');
     }
 
     /**
@@ -77,12 +80,15 @@ class RaceController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Race $race
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Race $race)
+    public function update(Request $request, int $id)
     {
-        //
+        $race = Race::find($id);
+        $race->name = $request->name;
+        $race->save();
+        return redirect('races.show');
     }
 
     /**
@@ -93,6 +99,7 @@ class RaceController extends Controller
      */
     public function destroy(Race $race)
     {
-        //
+        Race::destroy($id);
+        return redirect('races.index');
     }
 }
